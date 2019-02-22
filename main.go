@@ -6,8 +6,14 @@ import (
 	"os"
 )
 
+var port string
+
 func main() {
-	port := os.Getenv("port")
+	if envPort := os.Getenv("port"); envPort != "" {
+		port = envPort
+	}
+
+	log.Println(port)
 
 	http.HandleFunc("/config", configHandler)
 	http.HandleFunc("/", redirectHandler)
